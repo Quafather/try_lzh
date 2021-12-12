@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>网页验证码</title>
+  <style>
+    #code{
+      font-size: 18px;
+      font-weight: bold;
+      font-style: italic;
+      color: crimson;
+      text-align:center;
+      padding: 20px;
+      background-color: burlywood;
+      width: 70px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div id="code">message</div>
+    <br>
+    <span>请输入验证码：</span>
+    <input type="text" id="write_in" placeholder="请输入验证码">
+    <button id="button">提交</button>
+    <span id="tip"></span>
+    <script>
+      var code;          
+      creatCode();
+      $('button').onclick = function(){
+        var input = $('write_in').value;
+        var input_up = input.toUpperCase();
+        if(input_up == code){
+          alert('right');
+        }
+        else{
+          alert('wrong');
+        }
+      }
+
+
+      function random(min,max){
+        return Math.floor(Math.random()*(max - min) + min);
+        //在min和max之间可能是一个小数，用Math的floor方法化为整数
+      }
+
+      function creatCode(){
+        code = '';
+        var length = 4;
+        var randomCode = [0,1,2,3,4,5,6,7,8,9,'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+        for(var i=0; i < length; ++i){
+          var index = random(0,36);
+          code += randomCode[index];
+        }
+        $('code').innerHTML = code;
+        
+      }
+      function $(id){
+        return typeof id == 'string' ?document.getElementById(id):null;
+      }      
+
+    </script>
+  </div>
+</body>
+</html>

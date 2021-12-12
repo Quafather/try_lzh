@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>发布评论</title>
+  <style>
+    *{
+      margin: 0;
+      padding: 0;
+    }
+    #box{
+      width: 1000px;
+      border: 2px solid crimson;
+      margin: 100px auto;
+    }
+    #top{
+      width: 50%;
+      padding: 10px 20px;
+      font-size: 20px;
+      outline: none;
+    }
+    #connect li{
+      border-bottom: 1px dashed rosybrown;
+      width: 800px;
+      margin-bottom: 20px;
+    }
+    #connect li a{
+      float:right;
+    }
+  </style>
+</head>
+<body>
+  <div id="box">
+    <div id="top">
+      <textarea name="" id="comment" cols="80" rows="10" placeholder="请输入你的评论"></textarea>
+      <button id="button">发布</button>     
+    </div>
+    <ul id="connect">
+      <li>
+        我的评论
+        <a href="">删除</a>
+      </li>
+    </ul>
+  </div>
+
+  <script>
+    function $(id){
+      return typeof id == 'string'?document.getElementById(id):null;
+    }
+
+    $('button').onclick = function(){
+      var comment = $('comment').value;
+      if (comment == ''){
+        alert('请输入评论内容');
+        return;//用ruturn，让函数不继续执行
+      }
+      var newli = document.createElement('li');//创建元素的方法
+      comment +='<a>删除<a>' 
+      newli.innerHTML = comment;
+      //插入元素的方法
+     // $('connect').appendChild(newli); //这个是在列的后面插入
+     console.log($('connect').children);
+     $('connect').insertBefore(newli,$('connect').children[1]);//这个是在列的前面，‘我的评论’后面插入
+      $('comment').value = '';
+
+      var del = document.getElementsByTagName('a');
+      for(var i = 0; i < del.length; ++i){
+        del[i].onclick = function(){
+          this.parentNode.remove();//删除元素的方法
+        }
+      }
+    }
+  </script>
+</body>
+</html>
